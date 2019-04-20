@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('/assets/vendor/admin-lte/dist/css/skins/_all-skins.min.css') }}">
+<!-- Morris chart -->
+<link rel="stylesheet" href="{{ asset('/assets/vendor/morris.js/morris.css') }}">
+<!-- jvectormap -->
+<link rel="stylesheet" href="{{ asset('/assets/vendor/jvectormap/jquery-jvectormap.css') }}">
+<!-- Date Picker -->
+<link rel="stylesheet" href="{{ asset('/assets/vendor/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}">
+<!-- Daterange picker -->
+<link rel="stylesheet" href="{{ asset('/assets/vendor/bootstrap-daterangepicker/daterangepicker.css') }}">
+<!-- bootstrap wysihtml5 - text editor -->
+<link rel="stylesheet" href="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css') }}">
+{% endblock %}
+
+
+
+{% block body_class %}sidebar-mini skin-purple-light{% endblock %}
+{% block body_id %}body{% endblock %}
+
+
+
+{% block body %}
+
+<div class="wrapper">
+
+    {{ include('parts/header.html.twig') }}
+
+    <!-- =============================================== -->
+
+    {{ include('parts/aside.html.twig') }}
+
+    <!-- =============================================== -->
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+
+        {{ include('parts/header_page.html.twig') }}
+
+        <!-- Main content -->
+        <section class="content">
+            <!-- Default box -->
+            {% block main_content %}{% endblock %}
+            <!-- /.box -->
+        </section>
+        <!-- /.content -->
+
+    </div>
+    <!-- /.content-wrapper -->
+
+    <footer class="main-footer">
+    </footer>
+
+    <!-- Add the sidebar's background. This div must be placed immediately after the control sidebar -->
+    <div class="control-sidebar-bg"></div>
+
+</div>
+<!-- ./wrapper -->
+
+{% endblock %}
+
+
+{% block js_footer %}
+
+    <!-- SlimScroll -->
+    <script src="{{ asset('/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ asset('/assets/vendor/fastclick/lib/fastclick.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('/assets/vendor/admin-lte/dist/js/adminlte.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('.sidebar-menu').tree()
+        });
+    </script>
+
+    {% block javascript %}{% endblock %}
+
+{% endblock %}
