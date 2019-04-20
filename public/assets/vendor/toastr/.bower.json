@@ -1,0 +1,15 @@
+{
+  "name": "toastr",
+  "homepage": "https://github.com/stinger-soft/toastr",
+  "version": "2.1.3",
+  "_release": "2.1.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "2.1.3",
+    "commit": "f1f41b315300266ab506ee503e31ed0526de6e56"
+  },
+  "_source": "https://github.com/stinger-soft/toastr.git",
+  "_target": "^2.1.3",
+  "_originalSource": "stinger-soft/toastr",
+  "_direct": true
+}

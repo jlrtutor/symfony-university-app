@@ -1,7 +1,4 @@
 {
-    "almasaeed2010/adminlte": {
-        "version": "v2.4.0"
-    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
