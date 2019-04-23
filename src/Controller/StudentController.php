@@ -23,9 +23,9 @@ class StudentController extends AbstractController
             'students' => $students
         ]);
     }
+
     public function edit(Request $request, Student $student)
     {
-        $student = new Student();
         $form = $this->createForm(StudentType::class, $student);
 
         return $this->render('student/form.html.twig', [
@@ -33,7 +33,7 @@ class StudentController extends AbstractController
             'page_subtitle'=>'Alta',
             'menu_module'=>'student',
             'menu_controller'=>'add',
-            'form' => $form
+            'form' => $form->createView()
         ]);
     }
 }

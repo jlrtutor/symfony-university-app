@@ -1,6 +1,21 @@
 {% extends 'dashboardbase.html.twig' %}
 
+
+{% block stylesheets %}
+
+	{{ parent() }}
+
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
+
+{% endblock %}
+
+
+
 {% block main_content %}
+
+
+
+<!-- https://symfony.com/doc/current/form/form_customization.html -->
 
 <div class="box">
     <!-- /.box-header -->
@@ -8,7 +23,33 @@
 
         {{ form(form) }}
 
+        <div class="form-control">
+		    <i class="fa fa-calendar"></i> {{ form_label(form.birthdate) }}
+		    {{ form_widget(form.birthdate) }}
+
+		    <small>{{ form_help(form.birthdate) }}</small>
+
+		    <div class="form-error">
+		        {{ form_errors(form.birthdate) }}
+		    </div>
+		</div>
+
     </div>
     <!-- /.box-body -->
   </div>
+{% endblock %}
+
+
+{% block js_footer %}
+
+	{{ parent() }}
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+	<script>
+        jQuery(document).ready(function() {
+            $('.js-datepicker').datepicker();
+        });
+    </script>
+
 {% endblock %}

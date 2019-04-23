@@ -17,7 +17,7 @@ class StudentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Student::class,
+            'data_class' => 'App\Entity\Student'
         ]);
     }
 
@@ -26,12 +26,16 @@ class StudentType extends AbstractType
         $builder
         ->add('name', TextType::class)
         ->add('surname', TextType::class)
-        ->add('birthdate', DateType::class)
+        ->add('birthdate', DateType::class, [
+            'widget' => 'single_text',
+            'attr' => ['class' => 'js-datepicker'], //https://symfonycasts.com/screencast/symfony3-forms/date-picker-field
+            'html5' => false,                       //Tells browser not render their own date widget
+        ])
         ->add('email', TextType::class)
         ->add('genre', ChoiceType::class, [
             'choices'=>[
-                'Masculino','male',
-                'Femenino','female'
+                'Masculino'=>'male',
+                'Femenino'=>'female'
             ]
         ])
         ->add('dni', TextType::class)
@@ -40,6 +44,6 @@ class StudentType extends AbstractType
         ->add('town', TextType::class)
         ->add('province', TextType::class)
         ->add('telephone', TextType::class)
-        ->add('save', SubmitType::class, ['label' => 'Enviar']);
+        ->add('save', SubmitType::class);
     }
 }
