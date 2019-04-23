@@ -20,7 +20,7 @@ class StudentFixtures extends Fixture
             $genre = array_rand( $genre_values);
 
             $student->setName( $genre_values[$genre] == 'male'?$faker->firstNameMale:$faker->firstNameFemale );
-            $student->setSurname( $faker->lastName );
+            $student->setSurname( $faker->lastName . ' ' . $faker->lastName );
             $student->setBirthdate( new \DateTime( $faker->dateTimeThisCentury->format('Y-m-d') ) );
             $student->setGenre( $genre_values[$genre] );
             $student->setEmail( $faker->freeEmail );

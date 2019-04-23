@@ -1,3 +1,23 @@
 index:
   path: /
-  controller: App\Controller\AdminController::index
+  controller: App\Controller\StudentController::list
+
+student_list:
+  path: /student
+  controller: App\Controller\StudentController::list
+
+student_add:
+  path: /student/add
+  controller: App\Controller\StudentController::add
+
+student_edit:
+  path: /student/edit/{id}
+  controller: App\Controller\StudentController::edit
+  requirements:
+    id: '\d+'
+
+student_delete:
+  path: /student/delete/{id}
+  controller: App\Controller\StudentController::delete
+  requirements:
+    id: '\d+'

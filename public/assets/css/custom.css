@@ -28,7 +28,9 @@
 
 /* SIDEBAR */
 .item-active{
-    color:white !important;
+    color: #200c48 !important;
+    font-weight: bolder;
+    font-style: italic;
 }
 .navbar-nav>.user-menu>.dropdown-menu>li.user-header {
     height: 200px;
