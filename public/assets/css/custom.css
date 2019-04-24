@@ -46,3 +46,17 @@
 .table tr td .progress {
     margin-top: 9px;
 }
+
+
+/* custom tag input css */
+.bootstrap-tagsinput {
+    display: block !important;
+    border: 1px solid #d2d6de !important;
+    border-radius: 0px;
+    height: 34px;
+    padding: 4px 8px;
+    box-shadow: none;
+}
+.bootstrap-tagsinput .tag { 
+    font-size: 85%;
+}

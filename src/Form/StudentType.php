@@ -24,26 +24,48 @@ class StudentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('name', TextType::class)
-        ->add('surname', TextType::class)
+        ->add('name', TextType::class, [
+            'label' => 'Nombre'
+        ])
+        ->add('surname', TextType::class, [
+            'label' => 'Apellidos'
+        ])
         ->add('birthdate', DateType::class, [
+            'label' => 'Fecha de nacimiento',
             'widget' => 'single_text',
             'attr' => ['class' => 'js-datepicker'], //https://symfonycasts.com/screencast/symfony3-forms/date-picker-field
             'html5' => false,                       //Tells browser not render their own date widget
         ])
-        ->add('email', TextType::class)
+        ->add('email', TextType::class, [
+            'label' => 'Email'
+        ])
         ->add('genre', ChoiceType::class, [
+            'label' => 'Género',
             'choices'=>[
                 'Masculino'=>'male',
                 'Femenino'=>'female'
             ]
         ])
-        ->add('dni', TextType::class)
-        ->add('address', TextType::class)
-        ->add('cp', TextType::class)
-        ->add('town', TextType::class)
-        ->add('province', TextType::class)
-        ->add('telephone', TextType::class)
-        ->add('save', SubmitType::class);
+        ->add('dni', TextType::class, [
+            'label' => 'DNI'
+        ])
+        ->add('address', TextType::class, [
+            'label' => 'Dirección'
+        ])
+        ->add('cp', TextType::class, [
+            'label' => 'CP'
+        ])
+        ->add('town', TextType::class, [
+            'label' => 'Población'
+        ])
+        ->add('province', TextType::class, [
+            'label' => 'Provincia'
+        ])
+        ->add('telephone', TextType::class, [
+            'label' => 'Teléfono'
+        ])
+        ->add('save', SubmitType::class, [
+            'label' => 'Enviar'
+        ]);
     }
 }
