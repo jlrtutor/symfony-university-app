@@ -15,7 +15,7 @@ class StudentFixtures extends Fixture
         
         $faker = Faker\Factory::create('es_ES');
         
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 25; $i++) {
             $student = new Student();
             $genre = array_rand( $genre_values);
 

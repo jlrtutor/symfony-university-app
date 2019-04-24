@@ -32,6 +32,7 @@ class StudentType extends AbstractType
         ])
         ->add('birthdate', DateType::class, [
             'label' => 'Fecha de nacimiento',
+            'format' => 'dd/MM/yyyy',
             'widget' => 'single_text',
             'attr' => ['class' => 'js-datepicker'], //https://symfonycasts.com/screencast/symfony3-forms/date-picker-field
             'html5' => false,                       //Tells browser not render their own date widget

@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StudentRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Student
 {
@@ -255,6 +256,18 @@ class Student
     public function setIsDeleted(bool $isDeleted): self
     {
         $this->isDeleted = $isDeleted;
+
+        return $this;
+    }
+
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setDefaultValuesOnInsert(): self
+    {
+        $this->setIsDeleted( 0 );
+        $this->setCreatedAt( new \DateTime() );
 
         return $this;
     }

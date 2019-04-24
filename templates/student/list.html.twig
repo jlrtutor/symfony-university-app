@@ -27,7 +27,9 @@
             <td data-order="{{ student.getBirthdate()|date("Ymd") }}">{{ student.getBirthdate()|date("d/m/Y") }}</td>
             <td>{{ student.getEmail() }}</td>
             <td>
-                <span class="label label-primary">{{ student.getTelephone() }}</span>
+            {% for telephone in student.getTelephone()|split(',') %}
+                <span class="label label-primary">{{ telephone }}</span>
+            {% endfor %}
             </td>
             <td align="center">
                 <a href="#" title="{$_LANG.Student.list_button_suscriptions}" class="btn-edit btn btn-default btn-xs" role="{$student->id}"> <i class="fa fa-graduation-cap"></i> Matriculaciones </a>

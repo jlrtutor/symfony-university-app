@@ -9,11 +9,13 @@
 {% form_theme form _self %}
 
 
+
 {# override default template with custom block #}
 {% form_theme form 'form/fields.html.twig' %}
 
 
 {% block main_content %}
+
 
 	<!-- https://symfony.com/doc/current/form/form_customization.html -->
 
@@ -26,7 +28,6 @@
 		</div>
 
 	    <div class="box-body">
-
 	    	<div class="row">
 			    <div class="col-md-4">
 			        {{ form_row(form.name) }}
@@ -52,8 +53,41 @@
 
 	    </div>
 	    <!-- /.box-body -->
-	</div>
 
+		<div class="box-header with-border">
+			<h3 class="box-title">Datos de contacto</h3>
+		</div>
+		<!-- /.box-header -->
+		<div class="box-body">
+			<div class="row">
+				<div class="col-md-8">
+					{{ form_row(form.address) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.cp) }}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					{{ form_row(form.town) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.province) }}
+				</div>
+				<div class="col-md-4">
+					{{ form_row(form.telephone) }}
+				</div>
+			</div>
+		</div>
+
+		{{ form_row(form._token) }}
+
+		<div class="box-footer">
+			<a href="/student/edit/16/courses" type="button" class="btn btn-default btn-flat">Matriculaciones</a> 
+			<button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
+		</div>
+
+	</div>
 	{{ form_end(form, {'render_rest': false}) }}
 
 
@@ -61,16 +95,25 @@
 
 
 {% block js_footer %}
-
+	
 	{{ parent() }}
 
 	<!-- Date Picker -->
 	<script src="{{ asset('/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+	<script src="{{ asset('/assets/vendor/bootstrap-datepicker/dist/locales/bootstrap-datepicker.' ~ app.request.locale ~ '.min.js') }}"></script>
+
 	<script src="{{ asset('/assets/js/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
 
 	<script>
         jQuery(document).ready(function() {
-            $('.js-datepicker').datepicker();
+            
+			$('.js-datepicker').datepicker({
+				autoclose: true,
+				orientation: 'auto bottom',
+				language: '{{ app.request.getLocale() }}'
+			});
+			
+			$('#student_telephone').tagsinput();
         });
     </script>
 
