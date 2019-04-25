@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -86,6 +88,22 @@ class Student
      * @ORM\Column(type="boolean")
      */
     private $isDeleted;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StudentCourse", mappedBy="student")
+     */
+    private $studentCourses;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\StudentSubject", mappedBy="student")
+     */
+    private $studentSubjects;
+
+    public function __construct()
+    {
+        $this->studentCourses = new ArrayCollection();
+        $this->studentSubjects = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -268,6 +286,68 @@ class Student
     {
         $this->setIsDeleted( 0 );
         $this->setCreatedAt( new \DateTime() );
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudentCourse[]
+     */
+    public function getStudentCourses(): Collection
+    {
+        return $this->studentCourses;
+    }
+
+    public function addStudentCourse(StudentCourse $studentCourse): self
+    {
+        if (!$this->studentCourses->contains($studentCourse)) {
+            $this->studentCourses[] = $studentCourse;
+            $studentCourse->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentCourse(StudentCourse $studentCourse): self
+    {
+        if ($this->studentCourses->contains($studentCourse)) {
+            $this->studentCourses->removeElement($studentCourse);
+            // set the owning side to null (unless already changed)
+            if ($studentCourse->getStudent() === $this) {
+                $studentCourse->setStudent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|StudentSubject[]
+     */
+    public function getStudentSubjects(): Collection
+    {
+        return $this->studentSubjects;
+    }
+
+    public function addStudentSubject(StudentSubject $studentSubject): self
+    {
+        if (!$this->studentSubjects->contains($studentSubject)) {
+            $this->studentSubjects[] = $studentSubject;
+            $studentSubject->setStudent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudentSubject(StudentSubject $studentSubject): self
+    {
+        if ($this->studentSubjects->contains($studentSubject)) {
+            $this->studentSubjects->removeElement($studentSubject);
+            // set the owning side to null (unless already changed)
+            if ($studentSubject->getStudent() === $this) {
+                $studentSubject->setStudent(null);
+            }
+        }
 
         return $this;
     }
