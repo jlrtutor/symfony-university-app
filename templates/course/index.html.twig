@@ -1,0 +1,69 @@
+{% extends 'dashboardbase.html.twig' %}
+
+{% block main_content %}
+<div class="row">
+    <div class="col-md-5">
+        {{ include('form.html.twig') }}
+    </div>
+    <div class="col-md-7">
+        {{ include('list.html.twig') }}
+    </div>
+</div>
+
+
+<div class="modal modal-danger fade" id="modal-warning">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Aviso</h4>
+        </div>
+        <div class="modal-body">
+            <p>Confirme la eliminación del curso</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cerrar</button>
+            <button type="button" class="btn btn-outline" id="btn-delete-confirm">Borrar</button>
+        </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<!-- page script -->
+<script>
+
+        $(function () {
+            $('a.btn-delete').on('click', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');
+                $('#modal-warning').modal()
+                .on('click', '#btn-delete-confirm', function(e) {
+                    document.location.href = url;
+                });
+            });
+
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-full-width",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "500",
+                "timeOut": "3000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+                                }
+
+            
+                    });
+    </script>                <!-- End parts/course.add.tpl -->
+{% endblock %}
