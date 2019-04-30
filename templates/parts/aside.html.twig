@@ -41,7 +41,7 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> Listado</a></li>
             </ul>
         </li>
-        <li class="treeview">
+        <li class="treeview {% if menu_module == "course" %}active{% endif %}">
             <a href="#">
             <i class="fa fa-calendar"></i> <span>Cursos</span>
             <span class="pull-right-container">
@@ -49,7 +49,7 @@
             </span>
             </a>
             <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Añadir/Listado</a></li>
+                <li><a href="{{ path('course_list') }}" {% if menu_module == "course" and menu_controller == "list" %}class="item-active"{% endif %}><i class="fa fa-circle-o"></i> Añadir/Listado</a></li>
             </ul>
         </li>
         

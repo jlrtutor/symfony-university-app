@@ -7,9 +7,6 @@
 
 
 {% form_theme form _self %}
-
-
-
 {# override default template with custom block #}
 {% form_theme form 'form/fields.html.twig' %}
 
@@ -83,7 +80,7 @@
 		{{ form_row(form._token) }}
 
 		<div class="box-footer">
-			<a href="/student/edit/16/courses" type="button" class="btn btn-default btn-flat">Matriculaciones</a> 
+			<a href="#" type="button" class="btn btn-default btn-flat">Matriculaciones</a> 
 			<button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
 		</div>
 

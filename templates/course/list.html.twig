@@ -12,37 +12,26 @@
                     <th style="text-align:center;">Matriculaciones</th>
                     <th style="width: 100px"></th>
                 </tr>
+                {% for course in courses %}
                 <tr>
                     <td><i class="fa  fa-ellipsis-v"></i></td>
-                    <td>2019/2020</td>
+                    <td>{{ course.getName() }}</td>
                     <td align="center">1</td>
                     <td align="right">
-                        <a href="/course/edit/11" title="Editar" class="btn-edit btn btn-danger btn-xs" role="11"> 
+                        <a href="{{ path('course_edit', {id: course.getId() }) }}" title="Editar" class="btn-edit btn btn-danger btn-xs" role="11"> 
                             <i class="fa fa-edit"></i>
                         </a>
-                        <a href="/course/delete/11" title="Borrar" class="btn-delete btn btn-primary btn-xs" role="11"> 
+                        <a href="{{ path('course_delete', {id: course.getId() }) }}" title="Borrar" class="btn-delete btn btn-primary btn-xs" role="11"> 
                             <i class="fa fa-trash"></i> 
                         </a>
                     </td>
                 </tr>
-                <tr>
-                    <td><i class="fa  fa-ellipsis-v"></i></td>
-                    <td>2018/2019</td>
-                    <td align="center">3</td>
-                    <td align="right">
-                        <a href="/course/edit/12" title="Editar" class="btn-edit btn btn-danger btn-xs" role="12"> 
-                            <i class="fa fa-edit"></i> 
-                        </a>
-                        <a href="/course/delete/12" title="Borrar" class="btn-delete btn btn-primary btn-xs" role="12"> 
-                            <i class="fa fa-trash"></i> 
-                        </a>
-                    </td>
-                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-        <a type="submit" class="pull-right btn btn-primary btn-flat" href="/course/add">Nuevo</a>
+        <a type="submit" class="pull-right btn btn-primary btn-flat" href="{{ path('course_list') }}">Nuevo</a>
     </div>
 </div>

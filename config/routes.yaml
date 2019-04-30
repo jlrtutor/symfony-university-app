@@ -21,3 +21,19 @@ student_delete:
   controller: App\Controller\StudentController::delete
   requirements:
     id: '\d+'
+
+course_list:
+  path: /course/list
+  controller: App\Controller\CourseController::list
+
+course_edit:
+  path: /course/edit/{id}
+  controller: App\Controller\CourseController::edit
+  requirements:
+    id: '\d+'
+
+course_delete:
+  path: /course/delete/{id}
+  controller: App\Controller\CourseController::delete
+  requirements:
+    id: '\d+'
