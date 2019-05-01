@@ -12,14 +12,14 @@
     "library"
   ],
   "homepage": "https://github.com/jquery/jquery-dist",
-  "version": "3.4.0",
-  "_release": "3.4.0",
+  "version": "2.2.4",
+  "_release": "2.2.4",
   "_resolution": {
     "type": "version",
-    "tag": "3.4.0",
-    "commit": "180c5c33e477463ed93a9d5f7ac7cad7c9809f1c"
+    "tag": "2.2.4",
+    "commit": "c0185ab7c75aab88762c5aae780b9d83b80eda72"
   },
   "_source": "https://github.com/jquery/jquery-dist.git",
-  "_target": "^3.2.1",
+  "_target": ">=1.6.3 <3",
   "_originalSource": "jquery"
 }

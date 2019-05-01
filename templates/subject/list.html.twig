@@ -29,7 +29,7 @@
             <td>{{ subject.getName() }}</td>
             <td>{{ subject.getType() }}</td>
             <td align="center">{{ subject.getCredits() }}</td>
-            <td></td>
+            <td><i ajax_url="{{ path('subject_ajax_change_status', {id: subject.getId()} ) }}" class="toggle-active fa fa-toggle-{% if subject.getIsActive() %}on{% else %}off{% endif %}"></i></td>
             <td align="center">
                 <a href="{{ path('subject_edit', {id: subject.getId() }) }}" title="Editar" class="btn-edit btn btn-primary btn-xs" role="{{ subject.getId() }}"> <i class="fa fa-edit"></i> </a>
                 <a href="{{ path('subject_delete', {id: subject.getId() }) }}" title="Borrar" class="btn-delete btn btn-danger btn-xs" role="{{ subject.getId() }}"> <i class="fa fa-trash"></i> </a>
@@ -74,6 +74,46 @@
                 document.location.href = url;
             });
         });
+
+
+        //Change subject status function
+        $("i.toggle-active").on('click', function(){
+            var item_toggle = $(this);
+            var url = $(this).attr('ajax_url');
+            $.get(url, function(data){
+
+                toastr.options = {
+                                    "closeButton": true,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": true,
+                                    "positionClass": "toast-bottom-full-width",
+                                    "preventDuplicates": false,
+                                    "showDuration": "300",
+                                    "hideDuration": "500",
+                                    "timeOut": "3000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                    }
+
+                if(data) 
+                {
+                    toastr["success"]("Estado cambiado correctamente", "OK");
+                    
+                    if(item_toggle.hasClass('fa-toggle-on'))
+                    {
+                        item_toggle.removeClass('fa-toggle-on').addClass('fa-toggle-off').css('color', 'red');
+                    } else {
+                        item_toggle.removeClass('fa-toggle-off').addClass('fa-toggle-on').css('color','green');
+                    }
+                } else {
+                    toastr["error"]("Imposible cambiar el estado", "Error");
+                }
+            });
+        })
     });
 
 

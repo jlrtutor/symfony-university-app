@@ -57,3 +57,9 @@ subject_delete:
   controller: App\Controller\SubjectController::delete
   requirements:
     id: '\d+'
+
+subject_ajax_change_status:
+  path: /subject/ajax/change_status/{id}
+  controller: App\Controller\SubjectController::ajaxChangeStatus
+  requirements:
+    id: '\d+'
