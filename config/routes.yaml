@@ -37,3 +37,23 @@ course_delete:
   controller: App\Controller\CourseController::delete
   requirements:
     id: '\d+'
+
+subject_list:
+  path: /subject/list
+  controller: App\Controller\SubjectController::list
+
+subject_add:
+  path: /subject
+  controller: App\Controller\SubjectController::add
+
+subject_edit:
+  path: /subject/edit/{id}
+  controller: App\Controller\SubjectController::edit
+  requirements:
+    id: '\d+'
+
+subject_delete:
+  path: /subject/delete/{id}
+  controller: App\Controller\SubjectController::delete
+  requirements:
+    id: '\d+'

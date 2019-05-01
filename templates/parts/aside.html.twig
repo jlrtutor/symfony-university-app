@@ -29,7 +29,7 @@
             <li><a href="{{ path('student_list') }}" {% if menu_module == "student" and menu_controller == "list" %}class="item-active"{% endif %}><i class="fa fa-circle-o"></i> Listado</a></li>
             </ul>
         </li>
-        <li class="treeview {if $__module=="subject"}active{/if}">
+        <li class="treeview {% if menu_module == "subject" %}active{% endif %}">
             <a href="#">
             <i class="fa fa-book"></i> <span>Asignaturas</span>
             <span class="pull-right-container">
@@ -37,8 +37,8 @@
             </span>
             </a>
             <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Añadir</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Listado</a></li>
+            <li><a href="{{ path('subject_add') }}" {% if menu_module == "subject" and menu_controller == "add" %}class="item-active"{% endif %}><i class="fa fa-circle-o"></i> Añadir</a></li>
+            <li><a href="{{ path('subject_list') }}" {% if menu_module == "subject" and menu_controller == "list" %}class="item-active"{% endif %}><i class="fa fa-circle-o"></i> Listado</a></li>
             </ul>
         </li>
         <li class="treeview {% if menu_module == "course" %}active{% endif %}">

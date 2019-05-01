@@ -1,0 +1,92 @@
+{% extends 'dashboardbase.html.twig' %}
+
+{% block main_content %}
+
+<div class="box">
+    <!-- /.box-header -->
+    <div class="box-body">
+
+        <table id="data_table" class="table table-bordered table-striped dataTable" role="grid" aria-describedby="">
+        <thead>
+        <tr role="row">
+            <th>Curso</th>
+            <th>Semestre</th>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Créditos</th>
+            <th></th>
+            <th class="no-sort"></th>
+        </tr>
+        </thead>
+        <tbody>
+            {% for subject in subjects %}
+            
+            <tr role="row">
+            <td align="center">{{ subject.getCourse() }}º</td>
+            <td align="center">{{ subject.getSemester() }}º</td>
+            <td>{{ subject.getCode() }}</td>
+            <td>{{ subject.getName() }}</td>
+            <td>{{ subject.getType() }}</td>
+            <td align="center">{{ subject.getCredits() }}</td>
+            <td></td>
+            <td align="center">
+                <a href="{{ path('subject_edit', {id: subject.getId() }) }}" title="Editar" class="btn-edit btn btn-primary btn-xs" role="{{ subject.getId() }}"> <i class="fa fa-edit"></i> </a>
+                <a href="{{ path('subject_delete', {id: subject.getId() }) }}" title="Borrar" class="btn-delete btn btn-danger btn-xs" role="{{ subject.getId() }}"> <i class="fa fa-trash"></i> </a>
+            </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>Curso</th>
+            <th>Semestre</th>
+            <th>Código</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Créditos</th>
+            <th></th>
+            <th class="no-sort"></th>
+        </tfoot>
+      </table>
+    </div>
+    <!-- /.box-body -->
+  </div>
+{% endblock %}
+
+
+
+{% block javascript %}
+<!-- DataTables -->
+<script src="{{ asset('/assets/vendor/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('/assets/vendor/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('/assets/vendor/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+
+<!-- page script -->
+<script>
+
+    $(document).ready(function(){
+        $('a.btn-delete').on('click', function(e) {
+            e.preventDefault();
+            var url = $(this).attr('href');
+            $('#modal-warning').modal()
+            .on('click', '#btn-delete-confirm', function(e) {
+                document.location.href = url;
+            });
+        });
+    });
+
+
+    $(function () {
+        $('#data_table').DataTable({
+            select: true,
+            ordering: true,
+            columnDefs: [ { targets: 'no-sort', orderable: false }],
+            language:{
+                "url": "{{ asset('/assets/js/datatables/lang/es-ES.json') }}"
+            }   
+        });
+    });
+
+</script>
+{% endblock %}

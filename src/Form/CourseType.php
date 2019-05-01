@@ -23,7 +23,7 @@ class CourseType extends AbstractType
     {
         $builder
         ->add('name', TextType::class, [
-            'label' => 'Nombre'
+            'label' => 'Curso'
         ])
         ->add('save', SubmitType::class, [
             'label' => 'Enviar'
