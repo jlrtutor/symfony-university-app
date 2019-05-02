@@ -60,3 +60,11 @@
 .bootstrap-tagsinput .tag { 
     font-size: 85%;
 }
+
+/* FORM CHECKBOX */
+div.form-group>div.checkbox>label {
+    padding-left: 0px;
+}
+div.form-group>div.checkbox>label>div.icheckbox_square-blue {
+    margin-right: 10px;
+}

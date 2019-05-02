@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Subject;
+use App\Form\SubjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -34,6 +35,32 @@ class SubjectController extends AbstractController
         200);
     }
 
+    public function edit(Request $request, Subject $subject)
+    {
+        $form = $this->createForm(SubjectType::class, $subject);
+
+        $form->handleRequest($request);
+
+        $errors = $form->getErrors(true);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($data);
+            $manager->flush();
+            //return $this->redirectToRoute('student_list');
+        }
+
+        return $this->render('subject/form.html.twig', [
+            'page_title'=>'Editar asignatura',
+            'page_subtitle'=>'Editar',
+            'menu_module'=>'subject',
+            'menu_controller'=>'add',
+            'form' => $form->createView()
+        ]);
+    }
 
     public function list()
     {
@@ -46,6 +73,32 @@ class SubjectController extends AbstractController
             'menu_module'=>'subject',
             'menu_controller'=>'list',
             'subjects' => $subjects
+        ]);
+    }
+
+    public function add(Request $request)
+    {
+        $form = $this->createForm(SubjectType::class);
+
+        $form->handleRequest($request);
+
+        $errors = $form->getErrors(true);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($data);
+            $manager->flush();
+            return $this->redirectToRoute('subject_list');
+        }
+
+        return $this->render('subject/form.html.twig', [
+            'page_title'=>'Alta de asignatura',
+            'page_subtitle'=>'Alta',
+            'menu_module'=>'subject',
+            'menu_controller'=>'add',
+            'form' => $form->createView()
         ]);
     }
 }

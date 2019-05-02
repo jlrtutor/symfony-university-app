@@ -1,0 +1,94 @@
+{% extends 'dashboardbase.html.twig' %}
+
+
+{% form_theme form _self %}
+{# override default template with custom block #}
+{% form_theme form 'form/fields.html.twig' %}
+
+
+{% block main_content %}
+
+
+	<!-- https://symfony.com/doc/current/form/form_customization.html -->
+
+	{{ form_start(form, {'method': 'POST'}) }}
+
+	<div class="box box-default">
+	    <!-- /.box-header -->
+		<div class="box-header with-border">
+			<h3 class="box-title">Datos de la asignatura</h3>
+		</div>
+
+            
+	    <div class="box-body">
+	    	<div class="row">
+			    <div class="col-md-6">
+			        {{ form_row(form.name) }}
+			    </div>
+			    <div class="col-md-6">
+			        {{ form_row(form.type) }}
+			    </div>
+            </div>
+            <div class="row">
+			    <div class="col-md-3">
+			        {{ form_row(form.code) }}
+			    </div>
+			    <div class="col-md-3">
+			        {{ form_row(form.course) }}
+			    </div>
+			    <div class="col-md-3">
+			        {{ form_row(form.semester) }}
+			    </div>
+			    <div class="col-md-3">
+			        {{ form_row(form.credits) }}
+			    </div>
+			</div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_row(form.is_active) }}
+                </div>
+            </div>
+            
+	    </div>
+	    <!-- /.box-body -->
+
+		
+
+		{{ form_row(form._token) }}
+
+		<div class="box-footer">
+			<button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
+		</div>
+
+	</div>
+	{{ form_end(form, {'render_rest': false}) }}
+
+
+{% endblock %}
+
+
+{% block js_footer %}
+	
+	{{ parent() }}
+
+	<!-- Date Picker -->
+	<script src="{{ asset('/assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+	<script src="{{ asset('/assets/vendor/bootstrap-datepicker/dist/locales/bootstrap-datepicker.' ~ app.request.locale ~ '.min.js') }}"></script>
+
+	<script src="{{ asset('/assets/js/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+
+	<script>
+        jQuery(document).ready(function() {
+            
+			$('.js-datepicker').datepicker({
+				autoclose: true,
+				orientation: 'auto bottom',
+				language: '{{ app.request.getLocale() }}'
+			});
+			
+			$('#student_telephone').tagsinput();
+        });
+    </script>
+
+{% endblock %}

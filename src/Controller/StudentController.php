@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Student;
+use App\Entity\StudentCourse;
+use App\Form\StudentCourseType;
 use App\Form\StudentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,6 +12,34 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StudentController extends AbstractController
 {
+    public function registration(Request $request, Student $student)
+    {
+        $form = $this->createForm(StudentCourseType::class);
+
+        $form->handleRequest($request);
+
+        $errors = $form->getErrors(true);
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $data = $form->getData();
+            
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($data);
+            $manager->flush();
+            //return $this->redirectToRoute('student_list');
+        }
+
+        return $this->render('student/form.registration.html.twig', [
+            'page_title'=>'Editar estudiante',
+            'page_subtitle'=>'Editar',
+            'menu_module'=>'student',
+            'menu_controller'=>'add',
+            'form' => $form->createView()
+        ]);
+    }
+
+
     public function list()
     {
         $repository = $this->getDoctrine()->getRepository(Student::class);

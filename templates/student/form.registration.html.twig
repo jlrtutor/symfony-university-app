@@ -1,0 +1,61 @@
+{% extends 'dashboardbase.html.twig' %}
+
+{% form_theme form _self %}
+{# override default template with custom block #}
+{% form_theme form 'form/fields.html.twig' %}
+
+
+{% block main_content %}
+
+
+	<!-- https://symfony.com/doc/current/form/form_customization.html -->
+
+	{{ form_start(form, {'method': 'POST'}) }}
+
+	<div class="box box-default">
+	    <!-- /.box-header -->
+		<div class="box-header with-border">
+			<h3 class="box-title">Matriculaciones</h3>
+		</div>
+
+	    <div class="box-body">
+	    	<div class="row">
+			    <div class="col-md-4">
+			        {{ form_row(form.course) }}
+			    </div>
+			    <div class="col-md-4">
+			        {{ form_row(form.level) }}
+			    </div>
+			</div>
+
+	    </div>
+	    <!-- /.box-body -->
+
+
+		{{ form_row(form._token) }}
+
+		<div class="box-footer">
+			<button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
+		</div>
+
+	</div>
+	{{ form_end(form, {'render_rest': false}) }}
+
+
+{% endblock %}
+
+
+{% block js_footer %}
+	
+	{{ parent() }}
+
+	<!-- Date Picker -->
+	<script src="{{ asset('/assets/js/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
+
+	<script>
+        jQuery(document).ready(function() {			
+			$('#student_telephone').tagsinput();
+        });
+    </script>
+
+{% endblock %}

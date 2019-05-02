@@ -32,7 +32,7 @@
             {% endfor %}
             </td>
             <td align="center">
-                <a href="#" title="{$_LANG.Student.list_button_suscriptions}" class="btn-edit btn btn-default btn-xs" role="{$student->id}"> <i class="fa fa-graduation-cap"></i> Matriculaciones </a>
+                <a href="{{ path('student_registration', {id: student.getId() }) }}" title="Matriculaciones" class="btn-edit btn btn-default btn-xs" role=""> <i class="fa fa-graduation-cap"></i> Matriculaciones </a>
             </td>
             <td align="center">
                 <a href="{{ path('student_edit', {id: student.getId() }) }}" title="Editar" class="btn-edit btn btn-primary btn-xs" role="{{ student.getId() }}"> <i class="fa fa-edit"></i> </a>

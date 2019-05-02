@@ -16,6 +16,12 @@ student_edit:
   requirements:
     id: '\d+'
 
+student_registration:
+  path: /student/edit/{id}/registration
+  controller: App\Controller\StudentController::registration
+  requirements:
+    id: '\d+'
+
 student_delete:
   path: /student/delete/{id}
   controller: App\Controller\StudentController::delete

@@ -33,6 +33,7 @@ class SubjectType extends AbstractType
         ])
         ->add('course', ChoiceType::class, [
             'label' => 'Curso',
+            'placeholder' => '',
             'choices'=>[
                 '1'=>1,
                 '2'=>2,
@@ -43,6 +44,7 @@ class SubjectType extends AbstractType
         ])
         ->add('type', ChoiceType::class, [
             'label' => 'Tipo',
+            'placeholder' => '',
             'choices'=>[
                 'FORMACIÓN BÁSICA'=>'FORMACIÓN BÁSICA',
                 'OBLIGATORIAS'=>'OBLIGATORIAS',
@@ -51,6 +53,7 @@ class SubjectType extends AbstractType
         ])
         ->add('semester', ChoiceType::class, [
             'label' => 'Semestre',
+            'placeholder' => '',
             'choices'=>[
                 '1º'=>1,
                 '2º'=>2,

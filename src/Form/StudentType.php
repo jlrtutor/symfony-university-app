@@ -42,6 +42,7 @@ class StudentType extends AbstractType
         ])
         ->add('genre', ChoiceType::class, [
             'label' => 'Género',
+            'placeholder' => '',
             'choices'=>[
                 'Masculino'=>'male',
                 'Femenino'=>'female'
