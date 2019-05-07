@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StudentController extends AbstractController
 {
-    public function registration(Request $request, Student $student)
+    public function registration(Request $request, Student $student, $id)
     {
         $form = $this->createForm(StudentCourseType::class);
 
@@ -30,11 +30,24 @@ class StudentController extends AbstractController
             //return $this->redirectToRoute('student_list');
         }
 
+
+        $student = $this->getDoctrine()
+        ->getRepository(Student::class)
+        ->find($id);
+
+        if (!$student) {
+            throw $this->createNotFoundException(
+                'No atudent found for id '.$id
+            );
+        }
+
+
         return $this->render('student/form.registration.html.twig', [
-            'page_title'=>'Editar estudiante',
+            'page_title'=>'Editar matriculación',
             'page_subtitle'=>'Editar',
             'menu_module'=>'student',
             'menu_controller'=>'add',
+            'student'=>$student,
             'form' => $form->createView()
         ]);
     }
@@ -54,7 +67,7 @@ class StudentController extends AbstractController
         ]);
     }
 
-    public function edit(Request $request, Student $student)
+    public function edit(Request $request, Student $student, $id)
     {
         $form = $this->createForm(StudentType::class, $student);
 
@@ -72,11 +85,23 @@ class StudentController extends AbstractController
             //return $this->redirectToRoute('student_list');
         }
 
+        $student = $this->getDoctrine()
+        ->getRepository(Student::class)
+        ->find($id);
+
+        if (!$student) {
+            throw $this->createNotFoundException(
+                'No atudent found for id '.$id
+            );
+        }
+
+
         return $this->render('student/form.html.twig', [
             'page_title'=>'Editar estudiante',
             'page_subtitle'=>'Editar',
             'menu_module'=>'student',
             'menu_controller'=>'add',
+            'student'=>$student,
             'form' => $form->createView()
         ]);
     }

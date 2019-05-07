@@ -15,7 +15,7 @@ class StudentFixtures extends Fixture
         
         $faker = Faker\Factory::create('es_ES');
         
-        for ($i = 0; $i < 25; $i++) {
+        for ($i = 0; $i < 45; $i++) {
             $student = new Student();
             $genre = array_rand( $genre_values);
 
@@ -30,7 +30,9 @@ class StudentFixtures extends Fixture
             $student->setCp( $faker->postcode );
             $student->setTown( $faker->city );
             $student->setProvince( $faker->state );
-            $student->setTelephone( $faker->numberBetween($min = 600000000, $max = 699999999) );
+            $telephone = $faker->numberBetween($min = 600000000, $max = 699999999);
+            if($i%5==0) $telephone.= ',' . $faker->numberBetween($min = 600000000, $max = 699999999);
+            $student->setTelephone( $telephone );
             $student->setIsDeleted( 0 );
             
             $manager->persist($student);

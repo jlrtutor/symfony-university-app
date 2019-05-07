@@ -68,3 +68,8 @@ div.form-group>div.checkbox>label {
 div.form-group>div.checkbox>label>div.icheckbox_square-blue {
     margin-right: 10px;
 }
+
+/* STUDENT COURSE */
+li.student-telephones > a { 
+    margin-left: 1px;
+}

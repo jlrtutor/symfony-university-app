@@ -80,7 +80,7 @@
 		{{ form_row(form._token) }}
 
 		<div class="box-footer">
-			<a href="#" type="button" class="btn btn-default btn-flat">Matriculaciones</a> 
+			<a href="{{ path('student_registration', {id: student.getId() }) }}" type="button" class="btn btn-default btn-flat">Matriculaciones</a> 
 			<button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
 		</div>
 

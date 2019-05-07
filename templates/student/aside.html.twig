@@ -1,0 +1,53 @@
+<!-- Profile Image -->
+<div class="box box-primary">
+    <div class="box-body box-profile">
+        <img class="profile-user-img img-responsive img-circle" src="{{ asset('/assets/img/' ~ student.getGenre() ~ '_student.png') }}" alt="">
+
+        <h3 class="profile-username text-center">{{ student.getName() }} {{ student.getSurname() }}</h3>
+
+        <p class="text-muted text-center">{{ student.getEmail() }}</p>
+
+        <ul class="list-group list-group-unbordered">
+            <li class="list-group-item">
+                <b>F. nacimiento</b> <a class="pull-right">{{ student.getBirthdate()|date("d/m/Y") }}</a>
+            </li>
+            <li class="list-group-item">
+                <b>DNI</b> <a class="pull-right">{{ student.getDni() }}</a>
+            </li>
+            <li class="list-group-item student-telephones">
+                <b>Teléfonos</b> 
+                {% set telephones = student.getTelephone()|split(',') %}
+                {% for telephone in telephones %} 
+                <a class="pull-right"><span class="label label-primary">{{ telephone }}</span></a>
+                {% endfor %}
+            </li>
+        </ul>
+        
+        <a href="{{ path('student_edit', {id: student.getId() }) }}" class="btn btn-default btn-block">
+            <b>Modificar datos</b>
+        </a>
+    </div>
+    <!-- /.box-body -->
+</div>
+<!-- /.box -->
+
+<!-- About Me Box -->
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <h3 class="box-title">Datos personales</h3>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        <strong>
+            <i class="fa fa-map-marker margin-r-5"></i> Dirección
+        </strong>
+
+        <p class="text-muted">{{ student.getAddress() }}
+            <br/>{{ student.getCp() }} - {{ student.getTown()|default('') }} ({{ student.getProvince()|default('') }})
+        </p>
+        
+        <hr>
+    </div>
+    <!-- /.box-body -->
+</div>
+<!-- /.box -->

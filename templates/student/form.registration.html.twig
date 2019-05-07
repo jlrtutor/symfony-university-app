@@ -7,39 +7,91 @@
 
 {% block main_content %}
 
+    <div class="row">
+        <div class="col-md-4">
+            {{ include('student/aside.html.twig') }}
+        </div>
+        <div class="col-md-8">
 
-	<!-- https://symfony.com/doc/current/form/form_customization.html -->
-
-	{{ form_start(form, {'method': 'POST'}) }}
-
-	<div class="box box-default">
-	    <!-- /.box-header -->
-		<div class="box-header with-border">
-			<h3 class="box-title">Matriculaciones</h3>
-		</div>
-
-	    <div class="box-body">
-	    	<div class="row">
-			    <div class="col-md-4">
-			        {{ form_row(form.course) }}
-			    </div>
-			    <div class="col-md-4">
-			        {{ form_row(form.level) }}
-			    </div>
-			</div>
-
-	    </div>
-	    <!-- /.box-body -->
+            <!-- https://symfony.com/doc/current/form/form_customization.html -->
 
 
-		{{ form_row(form._token) }}
+            <div class="box box-warning">
+                <!-- /.box-header -->
+                {{ form_start(form, {'method': 'POST'}) }}
+                <div class="box-header with-border">
+                    <h3 class="box-title">Matriculaciones</h3>
+                </div>
 
-		<div class="box-footer">
-			<button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
-		</div>
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.course) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.level) }}
+                        </div>
+                    </div>
 
-	</div>
-	{{ form_end(form, {'render_rest': false}) }}
+                </div>
+                <!-- /.box-body -->
+
+                {{ form_row(form._token) }}
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
+                </div>
+                
+                {{ form_end(form, {'render_rest': false}) }}
+
+                <hr>
+
+                <table class="table table-striped">
+                    <tbody>
+                        <tr>
+                        <th style="width:5%">#</th>
+                        <th style="">Año</th>
+                        <th style="text-align:center;width:10%">Curso</th>
+                        <th style="text-align:center;width:20%">Fecha de alta</th>
+                        <th style="text-align:center;width:20%">Nota media</th>
+                        <th style="">Progreso</th>
+                        <th></th>
+                        <th style="width:5%"></th>
+                        </tr>
+                        
+                        {foreach $_STUDENT_REGISTRATION as $course}
+                        {assign var="total_subject" value=$_CALIFICATIONS->getNumSubjects($_STUDENT_ID, $course->id, $course->level)->total}
+                        {assign var="average_calification" value=$_CALIFICATIONS->getAverageCalification($_STUDENT_ID, $course->id, $course->level)->avg}
+                        {assign var="approved_subject" value=$_CALIFICATIONS->getApprovedSubjects($_STUDENT_ID, $course->id, $course->level)->total}
+                        
+                        {if !$total_subject}
+                        {assign var="progress_percentage" value=0} 
+                        {else}
+                        {assign var="progress_percentage" value=($approved_subject/$total_subject)*100} 
+                        {/if}                
+                        
+                        {assign var=params value=['id'=>$_STUDENT_ID,'course_id'=>$course->id, 'level'=>$course->level]}
+                        <tr>
+                        <td><i class="fa  fa-ellipsis-v"></i></td>
+                        <td>{$course->getCourse()->name}</td>
+                        <td style="text-align:center;">{$course->level}º</td>
+                        <td style="text-align:center;">{$course->date_of_creation|date_format:"%d/%m/%Y"}</td>
+                        <td style="text-align:center;">{$average_calification|round:2}</td>
+                        <td style="text-align:center;">
+                            <div class="progress progress-xs">
+                            <div class="progress-bar progress-bar-{if $progress_percentage == 100}success{else}danger{/if}" style="width: {$progress_percentage|round:1}%"></div>
+                            </div>
+                        </td>
+                        <td><span class="badge bg-{if $progress_percentage == 100}green{else}red{/if}">{$progress_percentage|round:1}%</span></td>
+                        <td style="text-align:right;"><a href="{$_router->generate('student-course-subject', $params)}" title="Notas" class="btn-edit btn btn-default btn-xs" role="{$course->id}"> <i class="fa fa-pencil"></i> {$_LANG.Student.grades_button_grades}</a></td>
+                        </tr>
+                        {/foreach}
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </div>
 
 
 {% endblock %}
