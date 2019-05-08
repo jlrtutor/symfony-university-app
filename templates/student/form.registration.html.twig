@@ -59,33 +59,29 @@
                         <th style="width:5%"></th>
                         </tr>
                         
-                        {foreach $_STUDENT_REGISTRATION as $course}
-                        {assign var="total_subject" value=$_CALIFICATIONS->getNumSubjects($_STUDENT_ID, $course->id, $course->level)->total}
-                        {assign var="average_calification" value=$_CALIFICATIONS->getAverageCalification($_STUDENT_ID, $course->id, $course->level)->avg}
-                        {assign var="approved_subject" value=$_CALIFICATIONS->getApprovedSubjects($_STUDENT_ID, $course->id, $course->level)->total}
-                        
-                        {if !$total_subject}
-                        {assign var="progress_percentage" value=0} 
-                        {else}
-                        {assign var="progress_percentage" value=($approved_subject/$total_subject)*100} 
-                        {/if}                
-                        
-                        {assign var=params value=['id'=>$_STUDENT_ID,'course_id'=>$course->id, 'level'=>$course->level]}
+                        {% for course in courses %}
+
+                        {% set subjects_total = subject.getNumSubject( student.getId(), course.getCourse().getId(), course.getLevel() ) %}
+                        {% set subjects_approval = subject.getNumSubjectsApprovedByStudent( student.getId(), course.getCourse().getId(), course.getLevel() ) %}
+                        {% set subjects_average = subject.getAVGCourse( student.getId(), course.getCourse().getId(), course.getLevel() ) %}
+                        {% set progress_percentage = (subjects_approval / subjects_total) * 100 %}
                         <tr>
                         <td><i class="fa  fa-ellipsis-v"></i></td>
-                        <td>{$course->getCourse()->name}</td>
-                        <td style="text-align:center;">{$course->level}º</td>
-                        <td style="text-align:center;">{$course->date_of_creation|date_format:"%d/%m/%Y"}</td>
-                        <td style="text-align:center;">{$average_calification|round:2}</td>
+                        <td>{{ course.getCourse().getName() }}</td>
+                        <td style="text-align:center;">{{ course.getLevel() }}º</td>
+                        <td style="text-align:center;">{{ course.getCreatedAt()|date("d/m/Y") }}</td>
+                        <td style="text-align:center;">{{ subjects_average }}</td>
                         <td style="text-align:center;">
                             <div class="progress progress-xs">
-                            <div class="progress-bar progress-bar-{if $progress_percentage == 100}success{else}danger{/if}" style="width: {$progress_percentage|round:1}%"></div>
+                                <div class="progress-bar progress-bar-{% if progress_percentage == 100 %}success{% else %}danger{% endif %}" style="width: {{ progress_percentage|round(0, 'floor') }}%"></div>
                             </div>
                         </td>
-                        <td><span class="badge bg-{if $progress_percentage == 100}green{else}red{/if}">{$progress_percentage|round:1}%</span></td>
-                        <td style="text-align:right;"><a href="{$_router->generate('student-course-subject', $params)}" title="Notas" class="btn-edit btn btn-default btn-xs" role="{$course->id}"> <i class="fa fa-pencil"></i> {$_LANG.Student.grades_button_grades}</a></td>
+                        <td><span class="badge bg-{% if progress_percentage == 100 %}green{% else %}red{% endif %}">{{ progress_percentage|round(0,'floor') }}%</span></td>
+                        <td style="text-align:right;"><a href="#" title="Notas" class="btn-edit btn btn-default btn-xs" role="{{ course.getCourse().getId() }}"> 
+                            <i class="fa fa-pencil"></i> Notas</a>
+                        </td>
                         </tr>
-                        {/foreach}
+                        {% endfor %}
                     </tbody>
                 </table>
                 

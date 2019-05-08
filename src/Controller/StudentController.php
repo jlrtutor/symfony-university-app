@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Student;
 use App\Entity\StudentCourse;
+use App\Entity\StudentSubject;
 use App\Form\StudentCourseType;
 use App\Form\StudentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,7 +21,6 @@ class StudentController extends AbstractController
 
         $errors = $form->getErrors(true);
 
-
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             
@@ -29,7 +29,6 @@ class StudentController extends AbstractController
             $manager->flush();
             //return $this->redirectToRoute('student_list');
         }
-
 
         $student = $this->getDoctrine()
         ->getRepository(Student::class)
@@ -41,6 +40,8 @@ class StudentController extends AbstractController
             );
         }
 
+        $courses = $this->getDoctrine()->getRepository(StudentCourse::class)->findByStudent($id);
+        $subject = $this->getDoctrine()->getRepository(StudentSubject::class);
 
         return $this->render('student/form.registration.html.twig', [
             'page_title'=>'Editar matriculación',
@@ -48,6 +49,8 @@ class StudentController extends AbstractController
             'menu_module'=>'student',
             'menu_controller'=>'add',
             'student'=>$student,
+            'courses'=>$courses,
+            'subject'=>$subject,
             'form' => $form->createView()
         ]);
     }
