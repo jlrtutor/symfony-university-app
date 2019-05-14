@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\StudentCourseRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class StudentCourse
 {
@@ -87,6 +88,16 @@ class StudentCourse
     public function setLevel(int $level): self
     {
         $this->level = $level;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     */
+    public function setDefaultValuesOnInsert(): self
+    {
+        $this->setCreatedAt( new \DateTime() );
 
         return $this;
     }

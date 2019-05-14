@@ -19,6 +19,9 @@
             <div class="box box-warning">
                 <!-- /.box-header -->
                 {{ form_start(form, {'method': 'POST'}) }}
+
+                {{ form_widget(form.student, {'attr': {'value':student.getId()} }) }}
+
                 <div class="box-header with-border">
                     <h3 class="box-title">Matriculaciones</h3>
                 </div>
@@ -64,7 +67,11 @@
                         {% set subjects_total = subject.getNumSubject( student.getId(), course.getCourse().getId(), course.getLevel() ) %}
                         {% set subjects_approval = subject.getNumSubjectsApprovedByStudent( student.getId(), course.getCourse().getId(), course.getLevel() ) %}
                         {% set subjects_average = subject.getAVGCourse( student.getId(), course.getCourse().getId(), course.getLevel() ) %}
-                        {% set progress_percentage = (subjects_approval / subjects_total) * 100 %}
+                        {% if subjects_total > 0 %}
+                            {% set progress_percentage = (subjects_approval / subjects_total) * 100 %}
+                        {% else %}
+                        {% set progress_percentage = 0 %}
+                        {% endif %}
                         <tr>
                         <td><i class="fa  fa-ellipsis-v"></i></td>
                         <td>{{ course.getCourse().getName() }}</td>

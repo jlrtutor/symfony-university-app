@@ -10,15 +10,15 @@ student_add:
   path: /student/add
   controller: App\Controller\StudentController::add
 
-student_edit:
-  path: /student/edit/{id}
-  controller: App\Controller\StudentController::edit
+student_registration:
+  path: /student/edit/{id}/registration
+  controller: App\Controller\StudentCourseController::registration
   requirements:
     id: '\d+'
 
-student_registration:
-  path: /student/edit/{id}/registration
-  controller: App\Controller\StudentController::registration
+student_edit:
+  path: /student/edit/{id}
+  controller: App\Controller\StudentController::edit
   requirements:
     id: '\d+'
 
