@@ -16,6 +16,21 @@ student_registration:
   requirements:
     id: '\d+'
 
+student_registration_delete:
+  path: /student/edit/{id}/registration/{rid}/delete
+  controller: App\Controller\StudentCourseController::deleteRegistration
+  requirements:
+    id: '\d+'
+    rid: '\d+'
+
+student_registration_grades:
+  path: /student/edit/{id}/registration/{rid}/grade/{lid}
+  controller: App\Controller\StudentCourseController::grade
+  requirements:
+    id: '\d+'
+    rid: '\d+'
+    lid: '\d+'
+
 student_edit:
   path: /student/edit/{id}
   controller: App\Controller\StudentController::edit

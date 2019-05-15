@@ -68,4 +68,18 @@ class StudentCourseController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    public function deleteRegistration($id, $rid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $studentCourse = $em->getRepository('App:StudentCourse')->find( $rid );
+
+        if($studentCourse)
+        {
+            $em->remove($studentCourse);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('student_registration', ['id'=>$id ]);
+    }
 }
