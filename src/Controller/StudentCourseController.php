@@ -64,6 +64,7 @@ class StudentCourseController extends AbstractController
             'student'=>$student,
             'courses'=>$studentCourseRepository->findBy( ['student' => $student->getId()] ),
             'subject'=>$studentSubjectRepository,
+            'grades'=>$studentSubjectRepository->getGrades( $student->getId(), 1, 1),
             'form' => $form->createView()
         ]);
     }
