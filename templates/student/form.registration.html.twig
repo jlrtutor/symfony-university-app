@@ -18,15 +18,25 @@
 
             <div class="box box-warning">
                 <!-- /.box-header -->
-                {{ form_start(form, {'method': 'POST'}) }}
-
-                {{ form_widget(form.student, {'attr': {'value':student.getId()} }) }}
-
                 <div class="box-header with-border">
                     <h3 class="box-title">Matriculaciones</h3>
                 </div>
 
+
+                {{ form_start(form, {'method': 'POST'}) }}
+
+                {{ form_widget(form.student, {'attr': {'value':student.getId()} }) }}
+
+
                 <div class="box-body">
+
+                    {% if not courses %}
+                    <div class="callout callout-warning">
+                        <h4>Alumno no matriculado</h4>
+                        <p>Este alumno parece que no está aún matriculado.</p>
+                    </div>
+                    {% endif %}
+
                     <div class="row">
                         <div class="col-md-6">
                             {{ form_row(form.course) }}
@@ -42,11 +52,12 @@
                 {{ form_row(form._token) }}
 
                 <div class="box-footer">
-                    <button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
+                    <button type="submit" class="btn btn-primary btn-flat pull-right">Matricular</button>
                 </div>
                 
                 {{ form_end(form, {'render_rest': false}) }}
 
+                {% if courses %}
                 <hr>
 
                 <table class="table table-striped">
@@ -96,6 +107,8 @@
                     </tbody>
                 </table>
                 
+                {% endif %}
+
             </div>
         </div>
     </div>
