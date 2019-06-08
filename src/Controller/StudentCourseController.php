@@ -1,10 +1,13 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Grade;
 use App\Entity\Student;
 use App\Entity\StudentCourse;
 use App\Entity\StudentSubject;
+use App\Form\GradeType;
 use App\Form\StudentCourseType;
+use App\Form\StudentSubjectType;
 use App\Form\StudentType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +27,22 @@ class StudentCourseController extends AbstractController
         $studentCourse = new StudentCourse();
         $studentCourse->setStudent( new Student() );
 
-        $form = $this->createForm(StudentCourseType::class, $studentCourse);        
+        $grade = new Grade();
+
+        
+        $grades = $studentSubjectRepository->findBy( [
+            'course'=>$rid,
+            'level'=>$lid,
+            'student'=>$id 
+        ]);
+        
+
+        //print_r($grades);
+        //die();
+        $grade->getGrades()->add($grades);
+
+
+        $form = $this->createForm(GradeType::class, $grade);        
         $form->handleRequest($request);
         //die();
         

@@ -89,7 +89,7 @@
                             <td align="center">{{ subject.credits }}</td>
                             <td>{{ subject.type }}</td>
                             <td>
-                                <input maxlength="4" name="subject[1]" class="form-control input-sm" style="text-align:right;" type="text" placeholder="" value="{{ subject.grade }}">
+                                <input maxlength="4" name="grade[{{ subject.id }}]" class="form-control input-sm" style="text-align:right;" type="text" placeholder="" value="{{ subject.grade }}">
                             </td>
                         </tr>
                         {% endfor %}

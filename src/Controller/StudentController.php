@@ -50,7 +50,7 @@ class StudentController extends AbstractController
 
         if (!$student) {
             throw $this->createNotFoundException(
-                'No atudent found for id '.$id
+                'No student found for id '.$id
             );
         }
 

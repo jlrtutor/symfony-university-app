@@ -51,7 +51,7 @@ class StudentToNumberTransformer implements DataTransformerInterface
             // this message is not shown to the user
             // see the invalid_message option
             throw new TransformationFailedException(sprintf(
-                'An Student with Id "%s" does not exist!',
+                'A Student with Id "%s" does not exist!',
                 $student_id
             ));
         }
