@@ -1,10 +1,12 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Course;
 use App\Entity\Grade;
 use App\Entity\Student;
 use App\Entity\StudentCourse;
 use App\Entity\StudentSubject;
+use App\Entity\Subject;
 use App\Form\GradeType;
 use App\Form\StudentCourseType;
 use App\Form\StudentSubjectType;
@@ -21,30 +23,45 @@ class StudentCourseController extends AbstractController
         $em = $this->getDoctrine()->getManager();
 
         $student = $em->getRepository(Student::class)->find($id);
+
         $studentCourseRepository = $em->getRepository(StudentCourse::class);
         $studentSubjectRepository = $em->getRepository(StudentSubject::class);
+
+        $registration = $studentCourseRepository->find($rid);
+
+        $course_id = $registration->getCourse()->getId();
 
         $studentCourse = new StudentCourse();
         $studentCourse->setStudent( new Student() );
 
         $grade = new Grade();
 
-        
-        $grades = $studentSubjectRepository->findBy( [
-            'course'=>$rid,
-            'level'=>$lid,
-            'student'=>$id 
-        ]);
-        
+        $grades = $studentSubjectRepository->getGrades( $id, $rid, $lid );
 
-        //print_r($grades);
-        //die();
-        $grade->getGrades()->add($grades);
+        foreach($grades as $item_grade)
+        {
+            $objGrade = new StudentSubject;
+            $objGrade->setStudent($em->getRepository(Student::class)->find($id));
+            $objGrade->setSubject($em->getRepository(Subject::class)->find($item_grade['id']));
+            $objGrade->setCourse($em->getRepository(Course::class)->find($course_id));
+            $objGrade->setLevel($lid);
 
+            $grade->getGrades()->add($objGrade);
 
-        $form = $this->createForm(GradeType::class, $grade);        
+            /*
+            $objGrade = $studentSubjectRepository->findBy( [
+                'student' => $id,
+                'course' => $course_id,
+                'level' => $lid,
+                'subject' => $item_grade['id']
+            ]);
+
+            $grade->getGrades()->add($objGrade);
+            */
+        }
+
+        $form = $this->createForm(GradeType::class, $grade->getGrades());        
         $form->handleRequest($request);
-        //die();
         
         $errors = $form->getErrors(true);
         
@@ -53,20 +70,18 @@ class StudentCourseController extends AbstractController
 
             //Check if Student is subscribed to course/level yet
             if( !$studentCourseRepository->findBy( [
-                'course'=>$request->request->get('student_course')['course'],
-                'level'=>$request->request->get('student_course')['level'],
-                'student'=>$request->request->get('student_course')['student'] ])) 
+                'course'=>$rid,
+                'level'=>$lid,
+                'student'=>$id]) ) 
                 {                
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($data);
                 $manager->flush();
-
                 //return $this->redirect($request->getUri());
             }
         }else{
             //echo $form->getErrors();
         }
-
 
         if (!$student) {
             throw $this->createNotFoundException(
@@ -80,10 +95,10 @@ class StudentCourseController extends AbstractController
             'menu_module'=>'student',
             'menu_controller'=>'add',
             'student'=>$student,
-            'courses'=>$studentCourseRepository->findBy( ['student' => $student->getId()] ),
+            'courses'=>$studentCourseRepository->findBy( ['student' => $id] ),
             'subject'=>$studentSubjectRepository,
-            'grades'=>$studentSubjectRepository->getGrades( $student->getId(), 1, 1),
-            'form' => $form->createView()
+            'grades'=>$grades,
+            'form'=>$form->createView()
         ]);
     }
 

@@ -6,7 +6,9 @@ use App\Entity\StudentSubject;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-
+/**
+ * @method StudentSubject[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ */
 class StudentSubjectRepository extends ServiceEntityRepository
 {
 

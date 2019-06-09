@@ -22,7 +22,7 @@ class GradeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Grade::class,
+            'data_class' => null,//Grade::class,
         ]);
     }
 }

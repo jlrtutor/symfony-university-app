@@ -71,6 +71,10 @@
 
                 <hr>
 
+                
+
+                {{ form_start(form, {'method': 'POST'}) }}
+
                 <table id="subjects_table" class="table table-striped table-condensed" role="grid" aria-describedby="">
                     <thead>
                         <tr role="row">
@@ -95,6 +99,10 @@
                         {% endfor %}
                     </tbody>
                 </table>
+
+                {{ form_row(form._token) }}
+
+                {{ form_end(form, {'render_rest': false}) }}
             </div>
         </div>
     </div>

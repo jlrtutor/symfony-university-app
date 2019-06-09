@@ -2,14 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\Grade;
 use App\Entity\StudentSubject;
 use App\Form\DataTransformer\CourseToNumberTransformer;
 use App\Form\DataTransformer\StudentToNumberTransformer;
 use App\Form\DataTransformer\SubjectToNumberTransformer;
-use App\Form\Type\FloatType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,7 +36,7 @@ class StudentSubjectType extends AbstractType
         ->add('subject', HiddenType::class)
         ->add('course', HiddenType::class)
         ->add('level', HiddenType::class)
-        ->add('grade', FloatType::class, [
+        ->add('grade', IntegerType::class, [
             'attr' => [
                 'min'  => 0,
                 'max'  => 10
@@ -50,7 +51,7 @@ class StudentSubjectType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            //'data_class' => StudentSubject::class,
+            //'data_class' => Grade::class,
             'data_class' => null,
         ]);
     }
