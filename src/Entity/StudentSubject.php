@@ -40,7 +40,7 @@ class StudentSubject
     private $level;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $grade;
 
@@ -107,7 +107,7 @@ class StudentSubject
         return $this->grade;
     }
 
-    public function setGrade(float $grade): self
+    public function setGrade($grade): self
     {
         $this->grade = $grade;
 

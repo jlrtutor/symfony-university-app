@@ -39,7 +39,7 @@
                         
                         {% for course in courses %}
 
-                        {% set subjects_total = subject.getNumSubject( course.getCourse().getId() ) %}
+                        {% set subjects_total = subject.getNumSubject( course.getLevel() ) %}
                         {% set subjects_approval = subject.getNumSubjectsApprovedByStudent( student.getId(), course.getCourse().getId(), course.getLevel() ) %}
                         {% set subjects_average = subject.getAVGCourse( student.getId(), course.getCourse().getId(), course.getLevel() ) %}
                         {% if subjects_total > 0 %}
@@ -47,12 +47,13 @@
                         {% else %}
                         {% set progress_percentage = 0 %}
                         {% endif %}
+
                         <tr>
                             <td><i class="fa  fa-ellipsis-v"></i></td>
                             <td>{{ course.getCourse().getName() }}</td>
                             <td style="text-align:center;">{{ course.getLevel() }}º</td>
                             <td style="text-align:center;">{{ course.getCreatedAt()|date("d/m/Y") }}</td>
-                            <td style="text-align:center;">{{ subjects_average }}</td>
+                            <td style="text-align:center;">{{ subjects_average|round(1) }}</td>
                             <td style="text-align:center;">
                                 <div class="progress progress-xs">
                                     <div class="progress-bar progress-bar-{% if progress_percentage == 100 %}success{% else %}danger{% endif %}" style="width: {{ progress_percentage|round(0, 'floor') }}%"></div>
@@ -93,12 +94,16 @@
                             <td align="center">{{ subject.credits }}</td>
                             <td>{{ subject.type }}</td>
                             <td>
-                                <input maxlength="4" name="grade[{{ subject.id }}]" class="form-control input-sm" style="text-align:right;" type="text" placeholder="" value="{{ subject.grade }}">
+                                <input maxlength="4" name="calification[{{ subject.id }}]" class="form-control input-sm" style="text-align:right;" type="text" placeholder="" value="{{ subject.grade }}">
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+
+                <div class="box-footer">
+			        <button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
+		        </div>
 
                 {{ form_row(form._token) }}
 

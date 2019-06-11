@@ -42,6 +42,7 @@ class StudentSubjectRepository extends ServiceEntityRepository
     public function getNumSubject($course_id)
     {
         $em = $this->getEntityManager();
+        
         return $em->createQueryBuilder()
             ->from('App\Entity\Subject', 's')
             ->select('COUNT(s.id) as total')
