@@ -56,10 +56,10 @@
                             <td style="text-align:center;">{{ subjects_average|round(1) }}</td>
                             <td style="text-align:center;">
                                 <div class="progress progress-xs">
-                                    <div class="progress-bar progress-bar-{% if progress_percentage == 100 %}success{% else %}danger{% endif %}" style="width: {{ progress_percentage|round(0, 'floor') }}%"></div>
+                                    <div class="progress-bar progress-bar-{% if progress_percentage >= 100 %}success{% else %}danger{% endif %}" style="width: {{ progress_percentage|round(0, 'floor') }}%"></div>
                                 </div>
                             </td>
-                            <td style="text-align:center;"><span class="badge bg-{% if progress_percentage == 100 %}green{% else %}red{% endif %}">{{ progress_percentage|round(0,'floor') }}%</span></td>
+                            <td style="text-align:center;"><span class="badge bg-{% if progress_percentage >= 100 %}green{% else %}red{% endif %}">{{ progress_percentage|round(0,'floor') }}%</span></td>
                             <td style="text-align:right;">
                                 <a href="{{ path('student_registration_grades', {id: student.getId(), rid: course.getId(), lid: course.getLevel() }) }}" class="btn-edit btn btn-default btn-xs"><i class="fa fa-pencil"></i> </a>
                             </td>
