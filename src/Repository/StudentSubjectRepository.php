@@ -30,10 +30,27 @@ class StudentSubjectRepository extends ServiceEntityRepository
         ->andWhere('s.isActive = :active')
         ->addOrderBy('s.semester')
         ->addOrderBy('s.name')
-        ->setParameters(  [ 'course'=>$course_id, 
+        ->setParameters(  [ 'course'=>$level, 
                             'active'=>1,
                             'student'=>$student_id,
                             'level'=>$level ] );
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function getSubjects($course_id)
+    {
+        $em = $this->getEntityManager();
+
+        $query = $em->createQueryBuilder()
+        ->select( ['s.id', 's.name', 's.type', 's.semester', 's.credits'] )
+        ->from('App\Entity\Subject', 's')
+        ->where('s.course = :course')
+        ->andWhere('s.isActive = :active')
+        ->addOrderBy('s.semester')
+        ->addOrderBy('s.name')
+        ->setParameters(  [ 'course'=>$course_id, 
+                            'active'=>1 ] );
 
         return $query->getQuery()->getResult();
     }

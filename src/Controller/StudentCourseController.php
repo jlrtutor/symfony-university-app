@@ -81,7 +81,13 @@ class StudentCourseController extends AbstractController
             );
         }
             
-        $grades = $studentSubjectRepository->getGrades( $id, $rid, $lid );
+        $grades = $studentSubjectRepository->getGrades( $id, $course_id, $lid );
+
+        if( !count($grades))
+        {
+            $grades = $studentSubjectRepository->getSubjects( $lid );
+        }
+        
         
         return $this->render('student/form.grade.html.twig', [
             'page_title'=>'Editar notas',

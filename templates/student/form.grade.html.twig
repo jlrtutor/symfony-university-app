@@ -53,7 +53,7 @@
                             <td>{{ course.getCourse().getName() }}</td>
                             <td style="text-align:center;">{{ course.getLevel() }}º</td>
                             <td style="text-align:center;">{{ course.getCreatedAt()|date("d/m/Y") }}</td>
-                            <td style="text-align:center;">{{ subjects_average|round(1) }}</td>
+                            <td style="text-align:center;">{{ subjects_average|round(2) }}</td>
                             <td style="text-align:center;">
                                 <div class="progress progress-xs">
                                     <div class="progress-bar progress-bar-{% if progress_percentage >= 100 %}success{% else %}danger{% endif %}" style="width: {{ progress_percentage|round(0, 'floor') }}%"></div>
@@ -71,8 +71,6 @@
                 {% endif %}
 
                 <hr>
-
-                
 
                 {{ form_start(form, {'method': 'POST'}) }}
 
@@ -94,7 +92,12 @@
                             <td align="center">{{ subject.credits }}</td>
                             <td>{{ subject.type }}</td>
                             <td>
-                                <input maxlength="4" name="calification[{{ subject.id }}]" class="form-control input-sm" style="text-align:right;" type="text" placeholder="" value="{{ subject.grade }}">
+                                <input maxlength="4" 
+                                        name="calification[{{ subject.id }}]" 
+                                        class="form-control input-sm" 
+                                        style="text-align:right;" 
+                                        type="text" placeholder="" 
+                                        value="{%if subject.grade is defined %}{{ subject.grade }}{% endif %}">
                             </td>
                         </tr>
                         {% endfor %}
@@ -102,6 +105,7 @@
                 </table>
 
                 <div class="box-footer">
+                    <a href="{{ path('student_registration', {id: student.getId() }) }}" type="button" class="btn btn-default btn-flat">Matriculaciones</a> 
 			        <button type="submit" class="btn btn-primary btn-flat pull-right">Enviar</button>
 		        </div>
 
