@@ -76,6 +76,20 @@ class SubjectController extends AbstractController
         ]);
     }
 
+    public function delete(Request $request, Subject $subject, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $subject = $em->getRepository('App:Subject')->find( $id );
+
+        if($subject)
+        {
+            $em->remove($subject);
+            $em->flush();
+        }
+        
+        return $this->redirectToRoute('subject_list');
+    }
+
     public function add(Request $request)
     {
         $form = $this->createForm(SubjectType::class);
