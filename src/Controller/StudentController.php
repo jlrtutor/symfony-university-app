@@ -26,6 +26,20 @@ class StudentController extends AbstractController
         ]);
     }
 
+    public function delete(Request $request, Student $student, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $student = $em->getRepository('App:Student')->find( $id );
+
+        if($student)
+        {
+            $em->remove($student);
+            $em->flush();
+        }
+        
+        return $this->redirectToRoute('student_list');
+    }
+
     public function edit(Request $request, Student $student, $id)
     {
         $form = $this->createForm(StudentType::class, $student);

@@ -19,7 +19,7 @@ class StudentCourse
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Student", inversedBy="studentCourses")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true, onDelete="CASCADE")
      */
     private $student;
 
